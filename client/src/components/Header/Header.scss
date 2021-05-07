@@ -1,0 +1,16 @@
+@import "../../util/_variables.scss";
+
+.Header {
+    background-color: $primaryColor;
+    color: #eee;
+    display: flex;
+    justify-content: space-between;
+
+    h1 {
+        padding: 1rem;
+    }
+
+    div {
+        padding: 1rem;
+    }
+}
