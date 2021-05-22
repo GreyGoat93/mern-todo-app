@@ -1,0 +1,9 @@
+@import "../../../util/variables";
+
+.TodoItem {
+    background-color: $secondaryColor;
+    color: #eee;
+    margin: 0.5rem 0;
+    border-radius: 20px;
+    padding: 0.4rem 0.8rem;
+}

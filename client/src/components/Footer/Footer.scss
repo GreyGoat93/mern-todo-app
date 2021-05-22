@@ -1,0 +1,18 @@
+@import '../../util/variables.scss';
+
+.Footer {
+    background-color: $primaryColor;
+    width: 100%;
+    color: #eee;
+    display: flex;
+    justify-content: center;
+
+    div {
+        padding: 1rem;
+        text-align: center;
+
+        h2 {
+            margin-bottom: 0.5rem;
+        }
+    }
+}

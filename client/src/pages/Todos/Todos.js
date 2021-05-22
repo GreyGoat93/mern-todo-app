@@ -1,27 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import './Todos.scss';
+import {getUserById} from '../../api/users.js';
+import TodoList from '../../components/TodoList/TodoList';
+import LoadingSpinner from '../../components/UI/LoadingSpinner/LoadingSpinner';
 
-const Todos = () => {
-    const todoList = [
-        {id: 1, title: "Wash Your Hands"},
-        {id: 2, title: "Prepare Breakfast"},
-        {id: 3, title: "Clean The Table"},
-        {id: 4, title: "Go To Work"},
-        {id: 5, title: "Buy Some Meat from Market"},
-        {id: 6, title: "Prepare Meat Food"},
-        {id: 7, title: "Brush Your Teeth"},
-        {id: 8, title: "Sleep!"},
-    ]
+let userFetched = false;
 
-    const todos = todoList.map((todo, index) => {
-        return <li key={todo.id}>{index + 1}. {todo.title}</li>
-    })
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const Todos = ({match}) => {
+    const [userData, setUserData] = useState(null);
+    const [fetchState, setFetchState] = useState("LOADING");
+
+    useEffect(() => {
+        let fetchData = async () => {
+            await sleep(2000);
+            let user = getUserById(parseInt(match.params.id));
+            if(user && !userFetched){
+                console.log(user)
+                setUserData(user);
+                setFetchState("FOUND")
+            } else if(!user){
+                setFetchState("NOT FOUND")
+            }
+            userFetched = true;
+        }
+        fetchData();
+    }, [userData, match.params.id])
+
+    let result = (
+        <div className="SpinnerContainer">
+            <LoadingSpinner />
+        </div>
+    )
+
+    if(fetchState === "NOT FOUND"){
+        result = <h2>No such user found!</h2>
+    }
+
+    if(fetchState === "FOUND") {
+        result = <TodoList userData={userData}/>
+    }
 
     return (
-        <div>
-            <h2>Todos of 23.12.2020</h2>
-            <ul>
-                {todos}
-            </ul>
+        <div className="TodosPage">
+            {result}
         </div>
     )
 }

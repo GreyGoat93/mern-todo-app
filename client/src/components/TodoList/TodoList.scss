@@ -1,0 +1,38 @@
+.TodoList {
+    animation: opacityAnimation 1s ease 0s 1;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+
+    .NameAndMenu {
+        display: flex;
+        justify-content: space-between;
+
+        .Buttons {
+            display: flex;
+
+            button {
+                padding: 0 0.8rem;
+                border-radius: 20px;
+                border: 1px solid red;
+                outline: none;
+                cursor: pointer;
+            }
+        }
+    }
+
+    ul {
+        list-style: none;
+        margin-top: 1rem;
+    }
+}
+
+@keyframes opacityAnimation {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

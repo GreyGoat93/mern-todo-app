@@ -1,0 +1,38 @@
+@import '../../util/variables.scss';
+
+.MainWelcome {
+    width: 100%;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    color: #eee;
+
+    div {
+        padding: 1em;
+        box-sizing: border-box;
+        animation: welcomeAnimation 0.6s ease 0s 1;     
+
+        h2 {
+            font-size: 3em;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            a {
+                color: $secondaryColor;
+            }
+        }
+    }
+}
+
+@keyframes welcomeAnimation {
+    from {
+        opacity: 0;
+        transform: translate(-10px);
+    }
+    to {
+        opacity: 1;
+    }
+}

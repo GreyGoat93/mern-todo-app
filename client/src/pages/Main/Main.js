@@ -3,7 +3,12 @@ import './Main.scss';
 
 const Main = () => {
     return (
-        <div>Main</div>
+        <div className="MainWelcome">
+            <div>
+                <h2>Welcome To Your Todo App!</h2>
+                <p>You can create and manage your <a href="/">to-dos</a>.</p>
+            </div>
+        </div>
     )   
 }
 

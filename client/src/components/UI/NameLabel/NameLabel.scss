@@ -1,0 +1,12 @@
+.NameLabel {
+    display: flex;
+    
+    h2 {
+        border-radius: 20px;
+        padding: 0.3rem 0.8rem;
+        box-sizing: border-box;
+        background-color: blue;
+        color: white;
+        display: inline;
+    }
+}
