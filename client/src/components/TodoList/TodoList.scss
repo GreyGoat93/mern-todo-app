@@ -1,3 +1,5 @@
+@import "../../util/variables";
+
 .TodoList {
     animation: opacityAnimation 1s ease 0s 1;
     width: 100%;
@@ -13,16 +15,31 @@
 
             button {
                 padding: 0 0.8rem;
-                border-radius: 20px;
-                border: 1px solid red;
+                border-radius: 10px;
+                border: 3px solid blue;
+                background-color: $primaryColor;
+                color: #fff;
                 outline: none;
                 cursor: pointer;
+
+                &:hover,
+                &:active {
+                    background-color: blue;
+                }
             }
         }
     }
 
     ul {
         list-style: none;
+        margin-top: 1rem;
+    }
+
+    .NoTodos {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin-top: 1rem;
     }
 }

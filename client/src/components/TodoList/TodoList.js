@@ -6,7 +6,7 @@ import NameLabel from '../UI/NameLabel/NameLabel';
 const TodoList = (props) => {
     let todos = []
     if(props.userData.todos.length <= 0){
-        todos = <div>No Todos!?</div>
+        todos = <div className="NoTodos">No Todos!?</div>
     } else {
         todos = (
                 <ul>
