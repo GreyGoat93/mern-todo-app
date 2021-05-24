@@ -2,6 +2,7 @@ import React from 'react'
 import './TodoList.scss'
 import TodoItem from './TodoItem/TodoItem';
 import NameLabel from '../UI/NameLabel/NameLabel';
+import Button from '../UI/Button/Button';
 
 const TodoList = (props) => {
     let todos = []
@@ -9,19 +10,19 @@ const TodoList = (props) => {
         todos = <div className="NoTodos">No Todos!?</div>
     } else {
         todos = (
-                <ul>
-                {props.userData.todos.map(todo => {
-                return <TodoItem key={todo.id}>{todo.title} | {todo.created_date}</TodoItem>})}
-                </ul>
-            )
+            <ul>
+            {props.userData.todos.map(todo => {
+            return <TodoItem key={todo.id} title={todo.title} />})}
+            </ul>
+        )
     }
 
     return (
         <div className="TodoList">
             <div className="NameAndMenu">
-                <NameLabel>{props.userData.first_name} {props.userData.last_name}'s todos;</NameLabel>
+                <NameLabel>{props.userData.first_name} {props.userData.last_name}'s todos</NameLabel>
                 <div className="Buttons">
-                   <button>Add</button>
+                   <Button type="Add"/>
                 </div>
             </div>
             {todos}

@@ -9,25 +9,6 @@
     .NameAndMenu {
         display: flex;
         justify-content: space-between;
-
-        .Buttons {
-            display: flex;
-
-            button {
-                padding: 0 0.8rem;
-                border-radius: 10px;
-                border: 3px solid blue;
-                background-color: $primaryColor;
-                color: #fff;
-                outline: none;
-                cursor: pointer;
-
-                &:hover,
-                &:active {
-                    background-color: blue;
-                }
-            }
-        }
     }
 
     ul {

@@ -1,0 +1,16 @@
+@import '../../../util/variables';
+
+.Button {
+    padding: 0.2rem;
+    border-radius: 50%;
+    border: none;
+    background-color: $primaryColor;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+        background-color: blue;
+    }
+}
