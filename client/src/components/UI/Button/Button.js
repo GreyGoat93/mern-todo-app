@@ -4,27 +4,21 @@ import { faPencilAlt, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import './Button.scss';
 
 const Button = (props) => {
-    let button = null;
+    let icon = null;
     switch(props.type){
         case "Add":
-            button = (
-                <button className="Button">
-                    <FontAwesomeIcon icon={faPlus}/>
-                </button>
+            icon = (
+                <FontAwesomeIcon icon={faPlus} style={{fontSize: "24px"}}/>
             )
         break;
         case "Delete":
-            button = (
-                <button className="Button">
-                    <FontAwesomeIcon icon={faTrash}/>
-                </button>
+            icon = (
+                <FontAwesomeIcon icon={faTrash}/>
             )
         break;
         case "Edit":
-            button = (
-                <button className="Button">
-                    <FontAwesomeIcon icon={faPencilAlt}/>
-                </button>
+            icon = (
+                <FontAwesomeIcon icon={faPencilAlt}/>
             )
         break;
         default:
@@ -32,10 +26,17 @@ const Button = (props) => {
         break;
     }
 
+    let buttonStyle = {
+        height: props.height,
+        width: props.width,
+    }
+
     return (
-        <>
-            {button}
-        </>
+        <div className="ButtonContainer">
+            <button className="Button" style={buttonStyle}>
+                {icon}
+            </button>
+        </div>
     )
 }
 

@@ -1,16 +1,22 @@
 @import '../../../util/variables';
 
-.Button {
-    padding: 0.2rem;
-    border-radius: 50%;
-    border: none;
-    background-color: $primaryColor;
-    color: #fff;
-    outline: none;
-    cursor: pointer;
+.ButtonContainer {   
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    &:hover,
-    &:active {
-        background-color: blue;
+    .Button {
+        padding: 0.2rem;
+        border-radius: 50%;
+        border: none;
+        background-color: $primaryColor;
+        color: #fff;
+        outline: none;
+        cursor: pointer;
+    
+        &:hover,
+        &:active {
+            background-color: blue;
+        }
     }
 }

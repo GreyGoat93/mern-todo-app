@@ -21,9 +21,7 @@ const TodoList = (props) => {
         <div className="TodoList">
             <div className="NameAndMenu">
                 <NameLabel>{props.userData.first_name} {props.userData.last_name}'s todos</NameLabel>
-                <div className="Buttons">
-                   <Button type="Add"/>
-                </div>
+                <Button type="Add" height="32px" width="32px"/>
             </div>
             {todos}
         </div>

@@ -8,8 +8,8 @@ const TodoItem = (props) => {
         <li className="TodoItem">
             <span className="TodoTitle">{props.title}</span>
             <ButtonSet>
-                <Button type="Edit"/>
-                <Button type="Delete"/>
+                <Button type="Edit" height="32px" width="32px"/>
+                <Button type="Delete" height="32px" width="32px"/>
             </ButtonSet>
         </li>
     )
