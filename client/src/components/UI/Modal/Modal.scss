@@ -1,0 +1,28 @@
+.ModalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 2s;
+
+    .ModalBackdrop {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background-color: #0004;
+        z-index: 100;
+    }
+
+    .ModalItself {
+        width: 600px;
+        margin-top: 50px;
+        background-color: #FFF;
+        border-radius: 20px;
+        z-index: 101;
+    }
+}

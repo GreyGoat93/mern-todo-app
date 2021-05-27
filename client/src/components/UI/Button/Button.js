@@ -33,7 +33,7 @@ const Button = (props) => {
 
     return (
         <div className="ButtonContainer">
-            <button className="Button" style={buttonStyle}>
+            <button className="Button" style={buttonStyle} onClick={props.onClick}>
                 {icon}
             </button>
         </div>

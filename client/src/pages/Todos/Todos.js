@@ -16,7 +16,7 @@ const Todos = ({match}) => {
 
     useEffect(() => {
         let fetchData = async () => {
-            await sleep(2000);
+            await sleep(500);
             let user = getUserById(parseInt(match.params.id));
             if(user && !userFetched){
                 console.log(user)
