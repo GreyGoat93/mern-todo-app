@@ -18,7 +18,7 @@ const Modal = (props) => {
                 <ModalBody>
                     {props.children}
                 </ModalBody>
-                <ModalFooter />
+                <ModalFooter approve={props.approve}/>
             </div>
         </div>
     )

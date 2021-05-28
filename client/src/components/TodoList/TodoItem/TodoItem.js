@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from '../../UI/Button/Button'
 import ButtonSet from '../../UI/ButtonSet/ButtonSet'
 import './TodoItem.scss'
 
 const TodoItem = (props) => {
 
+    useEffect(() => {console.log("bok3")})
+
     const showEditTodoModal = (todoId) => {
         console.log(todoId);
     }
-
 
     return (
         <li className="TodoItem">
@@ -21,4 +22,4 @@ const TodoItem = (props) => {
     )
 }
 
-export default TodoItem;
+export default TodoItem

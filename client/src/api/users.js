@@ -104,6 +104,18 @@ const fakeUsers = [
     },
 ]
 
-export const getUserById = (id) => {
-    return fakeUsers.find(pre => pre.id === id);
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export const getUserById = async (userId) => {
+    await sleep(2000);
+    return fakeUsers.find(pre => pre.id === userId);
+}
+
+export const deleteTodoById = async (todoId) => {
+    await sleep(2000);
+    const user = fakeUsers.find(pre => pre.todos.map(_pre => _pre.id).includes(todoId));
+    user.todos = user.todos.filter(pre => pre.id !== todoId);
+    return user;    
 }
