@@ -10,7 +10,8 @@ let userFetched = false;
 
 const Todos = ({match}) => {
     const [userData, setUserData] = useState(null);
-    const [fetchState, setFetchState] = useState("LOADING");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
     const [addTodoModal, setAddTodoModal] = useState(false);
     const [deleteTodoModal, setDeleteTodoModal] = useState(false);
     const [deleteTodoId, setDeleteTodoId] = useState(null);
@@ -18,21 +19,24 @@ const Todos = ({match}) => {
     console.log(fetchState);
 
     const getUserData = async (userId) => {
-        setFetchState("LOADING");
+        setLoading(true);
         const user = await getUserById(parseInt(userId));
         if(user){
-            console.log(user)
             setUserData(user);
-            setFetchState("FOUND")
+            setFetchState(false);
         } else if(!user){
-            setFetchState("NOT FOUND")
+            setLoading(false);
         }
     }
 
     const deleteTodo = async (todoId) => {
-        setFetchState("LOADING")
-        await deleteTodoById(todoId);
-        await getUserData(match.params.id)
+        try {
+            await deleteTodoById(todoId);         
+            await getUserData(match.params.id);
+        } catch(err){
+            setError(err)
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -48,7 +52,7 @@ const Todos = ({match}) => {
 
     let result;
 
-    if(fetchState === "LOADING"){
+    if(loading){
         result = (
             <div className="SpinnerContainer">
                 <LoadingSpinner />
@@ -62,31 +66,20 @@ const Todos = ({match}) => {
 
     if(fetchState === "FOUND") {
         result = (
-            <TodoList 
-            userData={userData}
-            deleteTodo={deleteTodo}
-            setDeleteTodoId={setDeleteTodoId}
-            showDeleteTodoModal={() => setDeleteTodoModal(true)}
-            showAddTodoModal={() => setAddTodoModal(true)}/>)
+            <TodoList userData={userData} deleteTodo={deleteTodo} setDeleteTodoId={setDeleteTodoId}
+            showDeleteTodoModal={() => setDeleteTodoModal(true)} showAddTodoModal={() => setAddTodoModal(true)}/>)
     }
 
     return (
         <div className="TodosPage">
             {result}
-            <AddTodoModal 
-            title="Popo"
-            modalState={addTodoModal}
-            close={() => setAddTodoModal(false)}>
+            {/* <AddTodoModal title="Popo" modalState={addTodoModal} close={() => setAddTodoModal(false)}>
                 Some Form
             </AddTodoModal>
-            <DeleteTodoModal
-            title="Pipi"
-            modalState={deleteTodoModal}
-            close={() => setDeleteTodoModal(false)}
-            deleteTodo={deleteTodo}
-            id={deleteTodoId}>
+            <DeleteTodoModal title="Pipi" modalState={deleteTodoModal} close={() => setDeleteTodoModal(false)}
+            deleteTodo={deleteTodo} id={deleteTodoId}>
                 Some Form
-            </DeleteTodoModal>
+            </DeleteTodoModal> */}
         </div>
     )
 }

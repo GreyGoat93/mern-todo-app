@@ -20,6 +20,7 @@ const TodoList = (props) => {
                 return <TodoItem 
                 key={todo.id} 
                 title={todo.title} 
+                deleteTodo={props.deleteTodo}
                 showDeleteTodoModal={() => {props.setDeleteTodoId(todo.id); props.showDeleteTodoModal()}}/>})}
             </ul>
         )
@@ -47,4 +48,4 @@ const compareProps = (prev, next) => {
     return false;
 }
 
-export default React.memo(TodoList, compareProps)
+export default TodoList
