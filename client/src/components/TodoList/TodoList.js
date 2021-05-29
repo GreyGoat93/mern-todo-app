@@ -17,7 +17,8 @@ const TodoList = (props) => {
         todos = (
             <ul>
                 {props.userData.todos.map(todo => {
-                return <TodoItem 
+                return <TodoItem
+                id={todo.id}
                 key={todo.id} 
                 title={todo.title} 
                 deleteTodo={props.deleteTodo}

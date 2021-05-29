@@ -16,8 +16,8 @@ const TodoItem = (props) => {
             <span className="TodoTitle">{props.title}</span>
             <ButtonSet>
                 <Button type="Edit" height="32px" width="32px" onClick={() => showEditTodoModal(props.id)}/>
-                {/* <Button type="Delete" height="32px" width="32px" onClick={() => props.showDeleteTodoModal(props.id)}/> */}
-                <Button type="Delete" height="32px" width="32px" onClick={() => props.deleteTodo(props.id)}/>
+                <Button type="Delete" height="32px" width="32px" onClick={() => props.showDeleteTodoModal(props.id)}/>
+                {/* <Button type="Delete" height="32px" width="32px" onClick={() => props.deleteTodo(props.id)}/> */}
             </ButtonSet>
         </li>
     )

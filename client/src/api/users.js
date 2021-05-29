@@ -109,13 +109,14 @@ function sleep(ms) {
 }
 
 export const getUserById = async (userId) => {
-    await sleep(2000);
+    console.log("getting data /api")
+    await sleep(500);
     return fakeUsers.find(pre => pre.id === userId);
 }
 
 export const deleteTodoById = async (todoId) => {
-    await sleep(2000);
+    console.log("deleting /api")
+    await sleep(500);
     const user = fakeUsers.find(pre => pre.todos.map(_pre => _pre.id).includes(todoId));
     user.todos = user.todos.filter(pre => pre.id !== todoId);
-    return user;    
 }
