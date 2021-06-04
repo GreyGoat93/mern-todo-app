@@ -45,8 +45,9 @@ const TodoList = (props) => {
 }
 
 const compareProps = (prev, next) => {
-    // if(_.isEqual(prev.userData, next.userData)) return true;
+    console.log(prev);
+    console.log(next);
     return false;
 }
 
-export default TodoList
+export default React.memo(TodoList, compareProps);
