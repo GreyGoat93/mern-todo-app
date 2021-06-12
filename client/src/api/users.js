@@ -1,4 +1,4 @@
-const fakeUsers = [
+let fakeUsers = [
     {
         id: 1,
         first_name: "Taha",
@@ -108,15 +108,31 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export const getUserById = async (userId) => {
+export const getUserDataById = async (userId) => {
+    let parsedId = parseInt(userId)
     console.log("getting data /api")
     await sleep(500);
-    return fakeUsers.find(pre => pre.id === userId);
+    const user = fakeUsers.find(pre => pre.id === parsedId);
+    if(!user) return null;
+    return {id: user.id, first_name: user.first_name, last_name: user.last_name, birth_date: user.birth_date};
+}
+
+export const getUserTodos = async (userId) => {
+    let parsedId = parseInt(userId);
+    console.log("getting todo /api");
+    await sleep(600);
+    const userTodos = fakeUsers.find(pre => pre.id === parsedId)?.todos;
+    if(!userTodos) return [];
+    return userTodos.map(pre => ({...pre, belongsUser: userId}));
 }
 
 export const deleteTodoById = async (todoId) => {
+    let parsedId = parseInt(todoId);
     console.log("deleting /api")
     await sleep(500);
-    const user = fakeUsers.find(pre => pre.todos.map(_pre => _pre.id).includes(todoId));
-    user.todos = user.todos.filter(pre => pre.id !== todoId);
+    const user = {...fakeUsers.find(pre => pre.todos.map(_pre => _pre.id).includes(parsedId))}
+    user.todos = user.todos.filter(pre => pre.id !== parsedId);
+    fakeUsers = [...fakeUsers.filter(pre => pre.id !== user.id), user]
+    console.log(user);
+    return user.todos;
 }

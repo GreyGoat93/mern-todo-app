@@ -1,53 +1,58 @@
 import React, { useEffect } from 'react'
 import './TodoList.scss'
 import TodoItem from './TodoItem/TodoItem';
-import NameLabel from '../UI/NameLabel/NameLabel';
+import DatePicker from '../UI/DatePicker/DatePicker';
+import { modalActions } from '../../store/index'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from '../UI/Button/Button';
-import _ from 'lodash';
+import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
 
-const TodoList = (props) => {
+const TodoList = () => {
 
-    useEffect(() => {console.log("bok2")})
-
-    let todos = []
-
-    if(props.userData.todos.length <= 0){
-        todos = <div className="NoTodos">No Todos!?</div>
-    } else {
-        todos = (
-            <ul>
-                {props.userData.todos.map(todo => {
-                return <TodoItem
-                id={todo.id}
-                key={todo.id} 
-                title={todo.title} 
-                deleteTodo={props.deleteTodo}
-                showDeleteTodoModal={() => {props.setDeleteTodoId(todo.id); props.showDeleteTodoModal()}}/>})}
-            </ul>
-        )
+    useEffect(() => {console.log("t2")})
+    const dispatch = useDispatch();
+    const userTodos = useSelector(state => state.todoReducer.userTodos);
+    const userTodosLoading = useSelector(state => state.todoReducer.userTodosLoading)
+    
+    let showDeleteTodoModal = (todoId) => {
+        dispatch(modalActions.toggleDeleteTodoModalState(true));
+        dispatch(modalActions.setDeleteTodoId(todoId));
     }
+    
+    let todos = null;
+    if(!userTodosLoading){
+        if(userTodos.length <= 0){
+            todos = <div className="NoTodos">No Todos!?</div>
+        } else {
+            todos = (
+                <ul>
+                    {userTodos.map(todo => {
+                        return <TodoItem
+                        key={todo.id}
+                        id={todo.id}
+                        title={todo.title}
+                        showDeleteTodoModal={() => {showDeleteTodoModal(todo.id)}}/>
+                    })}
+                </ul>
+            )
+        }
+    } else todos = (<div className="SpinnerContainer">
+                        <LoadingSpinner />
+                    </div>)  
 
     return (
         <div className="TodoList">
             <div className="NameAndMenu">
-                <NameLabel>
-                    {props.userData.first_name} {props.userData.last_name}'s todos
-                </NameLabel>
+                <DatePicker />
                 <Button 
                 type="Add" 
                 height="32px" 
                 width="32px" 
-                onClick={props.showAddTodoModal}/>
+                onClick={() => {dispatch(modalActions.toggleAddTodoModalState(true))}}/>
             </div>
             {todos}
         </div>
     )
 }
 
-const compareProps = (prev, next) => {
-    console.log(prev);
-    console.log(next);
-    return false;
-}
-
-export default React.memo(TodoList, compareProps);
+export default TodoList

@@ -19,7 +19,7 @@ const Modal = (props) => {
         nodeRef={nodeRef}
         in={props.modalState} 
         classNames="fade" 
-        timeout={500}>
+        timeout={{enter: 500}}>
             <div className="ModalContainer" ref={nodeRef}>
                 <div className="ModalBackdrop" onClick={closeModal}>
                 </div>

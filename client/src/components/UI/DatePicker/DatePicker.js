@@ -1,0 +1,18 @@
+import React from 'react';
+import './DatePicker.scss';
+
+const DatePicker = () => {
+    return (
+        <div className="DatePicker">
+            <label htmlFor="selectDate">Date: </label>
+            <select name="selectDate" id="selectDate" onChange={(e) => {console.log(e.target.value)}}>
+                <option value="">All</option>
+                <option value="21.02.2020">21.02.2020</option>
+                <option value="21.01.2020">21.01.2020</option>
+                <option value="20.01.2020">20.01.2020</option>
+            </select>
+        </div>
+    )
+}
+
+export default DatePicker;

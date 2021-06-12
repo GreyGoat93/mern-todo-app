@@ -1,15 +1,29 @@
 import React from 'react'
 import Modal from '../Modal'
+import { useDispatch, useSelector } from 'react-redux';
+import { modalActions } from '../../../../store/index';
+import { deleteTodo } from '../../../../reducers/todoReducer';
 import './DeleteTodoModal.scss'
 
-export default function DeleteTodoModal(props) {
+const DeleteTodoModal = (props) => {
+    const dispatch = useDispatch();
+    const modalState = useSelector(state => state.modalReducer.deleteTodoModalState)
+    const idSetToDelete = useSelector(state => state.modalReducer.deleteTodoId)
+
+    const approveDeleteTodo = (id) => {
+        dispatch(deleteTodo(id));
+        dispatch(modalActions.toggleDeleteTodoModalState(false))
+    }
+    
     return (
         <Modal 
-        modalState={props.modalState} 
-        close={props.close} 
+        modalState={modalState} 
+        close={() => {dispatch(modalActions.toggleDeleteTodoModalState(false))}} 
         title={props.title}
-        approve={() => props.deleteTodo(props.id)}>
-            You sure you want to delete todo with id #{props.id}
+        approve={() => approveDeleteTodo(idSetToDelete)}>
+            You sure you want to delete todo with id #{idSetToDelete}
         </Modal>            
     )
 }
+
+export default DeleteTodoModal;

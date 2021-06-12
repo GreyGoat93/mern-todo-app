@@ -1,25 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import './Todos.scss';
-import {getUserById, deleteTodoById} from '../../api/users.js';
 import TodoList from '../../components/TodoList/TodoList';
 import LoadingSpinner from '../../components/UI/LoadingSpinner/LoadingSpinner';
 import AddTodoModal from '../../components/UI/Modal/AddTodoModal/AddTodoModal';
 import DeleteTodoModal from '../../components/UI/Modal/DeleteTodoModal/DeleteTodoModal';
-
-let userFetched = false;
+import NameLabel from '../../components/UI/NameLabel/NameLabel'
+import { fetchUserData, fetchUserTodos } from '../../reducers/todoReducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Todos = ({match}) => {
-    // const [addTodoData, setAddTodoData] = useState();
-    
+    useEffect(() => {console.log("t1");})
+    const [userFetched, setUserFetched] = useState(false);
+    const dispatch = useDispatch();
+    const userInfo = useSelector(state => state.todoReducer.userInfo)
+    const generalLoading = useSelector(state => state.todoReducer.generalLoading)
+
+    useEffect(() => {
+        if(!userFetched){
+            setUserFetched(true)
+            dispatch(fetchUserData(match.params.id));
+            dispatch(fetchUserTodos(match.params.id));
+        }
+    }, [match.params.id, dispatch, generalLoading, userFetched])
+
+    let result;
+    if(generalLoading){
+        result = (
+            <div className="SpinnerContainer">
+                <LoadingSpinner />
+            </div>
+        )
+    } else if(!generalLoading){
+        if(!userInfo){
+            result = <h2>No such user found!</h2>
+        }
+        else if(userInfo){
+            result = (
+                <>
+                    <NameLabel>
+                        {userInfo.first_name} {userInfo.last_name}'s todos
+                    </NameLabel>
+                    <TodoList />
+                </>
+            )
+        }
+    }
 
     return (
         <div className="TodosPage">
             {result}
-            <AddTodoModal title="Popo" modalState={addTodoModal} close={() => setAddTodoModal(false)}>
+            <AddTodoModal title="EEE">
                 Some Form
             </AddTodoModal>
-            <DeleteTodoModal title="Pipi" modalState={deleteTodoModal} close={() => setDeleteTodoModal(false)}
-            deleteTodo={deleteTodo} id={deleteTodoId}>
+            <DeleteTodoModal title="AAA">
                 Some Form
             </DeleteTodoModal>
         </div>

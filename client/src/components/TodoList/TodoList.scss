@@ -1,6 +1,7 @@
 @import "../../util/variables";
 
 .TodoList {
+    margin-top: 0.7rem;
     animation: opacityAnimation 1s ease 0s 1;
     width: 100%;
     padding: 0 1rem;
@@ -13,7 +14,7 @@
 
     ul {
         list-style: none;
-        margin-top: 1rem;
+        margin-top: 0.3rem;
     }
 
     .NoTodos {
