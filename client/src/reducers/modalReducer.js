@@ -4,7 +4,13 @@ const initialState = {
     addTodoModalState: false,
     deleteTodoModalState: false,
     editTodoModalState: false,
-    deleteTodoId: null,
+    todoBeDeleted: null,
+    todoBeEdited: null,
+    todoBeAdded: {
+        userId: null,
+        name: "",
+        description: "",
+    },
 }
 
 const modalSlice = createSlice({
@@ -20,8 +26,17 @@ const modalSlice = createSlice({
         toggleEditTodoModalState(state, action){
             state.editTodoModalState = action.payload;
         },
-        setDeleteTodoId(state, action){
-            state.deleteTodoId = action.payload;
+        setDeleteTodo(state, action){
+            state.todoBeDeleted = action.payload;
+        },
+        setAddTodo(state, action){
+            state.todoBeAdded = action.payload;
+        },
+        setAddTodoUser(state, action){
+            state.todoBeAdded.userId = action.payload;
+        },
+        setEditTodo(state, action){
+            state.todoBeEdited = action.payload;
         }
     }
 })

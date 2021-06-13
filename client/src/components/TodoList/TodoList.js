@@ -11,12 +11,18 @@ const TodoList = () => {
 
     useEffect(() => {console.log("t2")})
     const dispatch = useDispatch();
+    const userData = useSelector(state => state.todoReducer.userData);
     const userTodos = useSelector(state => state.todoReducer.userTodos);
     const userTodosLoading = useSelector(state => state.todoReducer.userTodosLoading)
     
-    let showDeleteTodoModal = (todoId) => {
+    const showDeleteTodoModal = (todo) => {
         dispatch(modalActions.toggleDeleteTodoModalState(true));
-        dispatch(modalActions.setDeleteTodoId(todoId));
+        dispatch(modalActions.setDeleteTodo(todo));
+    }
+
+    const showEditTodoModal = (todo) => {
+        dispatch(modalActions.toggleEditTodoModalState(true));
+        dispatch(modalActions.setEditTodo(todo));
     }
     
     let todos = null;
@@ -29,9 +35,9 @@ const TodoList = () => {
                     {userTodos.map(todo => {
                         return <TodoItem
                         key={todo.id}
-                        id={todo.id}
-                        title={todo.title}
-                        showDeleteTodoModal={() => {showDeleteTodoModal(todo.id)}}/>
+                        todo={todo}
+                        showDeleteTodoModal={() => {showDeleteTodoModal(todo)}}
+                        showEditTodoModal={() => {showEditTodoModal(todo)}}/>
                     })}
                 </ul>
             )

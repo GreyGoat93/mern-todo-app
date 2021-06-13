@@ -1,17 +1,42 @@
 import React, { useRef } from 'react';
+import ButtonSet from '../ButtonSet/ButtonSet';
 import './Modal.scss';
 import './Modal.css';
 import {CSSTransition} from 'react-transition-group';
-import ModalBody from './ModalBody/ModalBody'
-import ModalFooter from './ModalFooter/ModalFooter'
-import ModalHeader from './ModalHeader/ModalHeader'
+
+const ModalHeader = (props) => {
+    return (
+        <div className="ModalHeader">
+            <h3>{props.title}</h3>
+        </div>
+    )
+}
+
+const ModalFooter = (props) => {
+    return (
+        <div className="ModalFooter">
+            <ButtonSet>
+                <button onClick={props.cancel} className="CancelButton">Cancel</button>
+                <button onClick={props.approve} className="ApproveButton" style={{backgroundColor: props.approveColor}}>{props.approveText}</button>
+            </ButtonSet>
+        </div>
+    )
+}
+
+const ModalBody = (props) => {
+    return (
+        <div className="ModalBody">
+            {props.children}
+        </div>
+    )
+}
 
 const Modal = (props) => {
     const nodeRef = useRef(null)
     const closeModal = () => {
         props.close();
     }
-    // style={{display: props.modalState ? "flex" : "none", opacity: props.modalState ? "1" : "0"}}
+
     return (
         <CSSTransition
         mountOnEnter
@@ -19,7 +44,7 @@ const Modal = (props) => {
         nodeRef={nodeRef}
         in={props.modalState} 
         classNames="fade" 
-        timeout={{enter: 500}}>
+        timeout={{enter: 300}}>
             <div className="ModalContainer" ref={nodeRef}>
                 <div className="ModalBackdrop" onClick={closeModal}>
                 </div>
@@ -28,7 +53,11 @@ const Modal = (props) => {
                     <ModalBody>
                         {props.children}
                     </ModalBody>
-                    <ModalFooter approve={props.approve}/>
+                    <ModalFooter
+                    cancel={closeModal} 
+                    approve={props.approve} 
+                    approveText={props.approveText}
+                    approveColor={props.approveColor}/>
                 </div>
             </div>
         </CSSTransition>

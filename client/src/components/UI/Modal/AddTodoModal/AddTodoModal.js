@@ -10,9 +10,12 @@ export default function AddTodoModal(props) {
 
     return (
         <Modal 
-        title={props.title} 
+        title="Add New Todo" 
         modalState={modalState} 
-        close={() => dispatch(modalActions.toggleAddTodoModalState(false))}>
+        close={() => dispatch(modalActions.toggleAddTodoModalState(false))}
+        approve={() => {}}
+        approveText="Add"
+        approveColor="#119922">
             {props.id}
         </Modal>
     )

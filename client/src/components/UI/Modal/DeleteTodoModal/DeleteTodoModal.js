@@ -5,10 +5,11 @@ import { modalActions } from '../../../../store/index';
 import { deleteTodo } from '../../../../reducers/todoReducer';
 import './DeleteTodoModal.scss'
 
-const DeleteTodoModal = (props) => {
+const DeleteTodoModal = () => {
     const dispatch = useDispatch();
     const modalState = useSelector(state => state.modalReducer.deleteTodoModalState)
-    const idSetToDelete = useSelector(state => state.modalReducer.deleteTodoId)
+    const todoBeDeleted = useSelector(state => state.modalReducer.todoBeDeleted)
+    console.log(todoBeDeleted);
 
     const approveDeleteTodo = (id) => {
         dispatch(deleteTodo(id));
@@ -16,13 +17,25 @@ const DeleteTodoModal = (props) => {
     }
     
     return (
-        <Modal 
-        modalState={modalState} 
-        close={() => {dispatch(modalActions.toggleDeleteTodoModalState(false))}} 
-        title={props.title}
-        approve={() => approveDeleteTodo(idSetToDelete)}>
-            You sure you want to delete todo with id #{idSetToDelete}
-        </Modal>            
+        <>
+            <Modal
+            modalState={modalState}
+            close={() => {dispatch(modalActions.toggleDeleteTodoModalState(false))}}
+            title="Delete Todo"
+            approve={() => approveDeleteTodo(todoBeDeleted?.id)}
+            approveText="Delete"
+            approveColor="#FF1122">
+                <div className="DeleteTodoModalBody">
+                    <h3>Are you sure that you want to delete this todo:</h3>
+                    <div>
+                        <p>{`Title: "${todoBeDeleted?.title}"`}</p>
+                    </div>
+                    <div>
+                        <p>{`Date: "${todoBeDeleted?.created_date}"`}</p>
+                    </div>
+                </div>
+            </Modal>
+        </>
     )
 }
 

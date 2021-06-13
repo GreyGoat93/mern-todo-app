@@ -108,6 +108,19 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function getNewDate() {
+    const date = new Date();
+    return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
+}
+
+const findHighestTodoId = (arrayUsers) => {
+    const ids = arrayUsers.reduce((acc, val) => {
+        acc.push(...val.todos)
+        return acc;
+    }, []).map(pre => pre.id);
+    return Math.max(...ids)
+}
+
 export const getUserDataById = async (userId) => {
     let parsedId = parseInt(userId)
     console.log("getting data /api")
@@ -132,6 +145,20 @@ export const deleteTodoById = async (todoId) => {
     await sleep(500);
     const user = {...fakeUsers.find(pre => pre.todos.map(_pre => _pre.id).includes(parsedId))}
     user.todos = user.todos.filter(pre => pre.id !== parsedId);
+    fakeUsers = [...fakeUsers.filter(pre => pre.id !== user.id), user]
+    console.log(user);
+    return user.todos;
+}
+
+export const addUserTodo = async (todo) => {
+    await sleep(500);
+    const user = {...fakeUsers.find(pre => pre.id === todo.userId)}
+    user.todos.push({
+        name: todo.name, 
+        description: todo.description,
+        created_date: getNewDate(),
+        id: findHighestTodoId + 1,
+    })
     fakeUsers = [...fakeUsers.filter(pre => pre.id !== user.id), user]
     console.log(user);
     return user.todos;

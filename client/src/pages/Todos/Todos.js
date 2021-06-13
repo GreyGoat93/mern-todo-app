@@ -4,6 +4,7 @@ import TodoList from '../../components/TodoList/TodoList';
 import LoadingSpinner from '../../components/UI/LoadingSpinner/LoadingSpinner';
 import AddTodoModal from '../../components/UI/Modal/AddTodoModal/AddTodoModal';
 import DeleteTodoModal from '../../components/UI/Modal/DeleteTodoModal/DeleteTodoModal';
+import EditTodoModal from '../../components/UI/Modal/EditTodoModal/EditTodoModal';
 import NameLabel from '../../components/UI/NameLabel/NameLabel'
 import { fetchUserData, fetchUserTodos } from '../../reducers/todoReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,12 +50,9 @@ const Todos = ({match}) => {
     return (
         <div className="TodosPage">
             {result}
-            <AddTodoModal title="EEE">
-                Some Form
-            </AddTodoModal>
-            <DeleteTodoModal title="AAA">
-                Some Form
-            </DeleteTodoModal>
+            <AddTodoModal />
+            <DeleteTodoModal />
+            <EditTodoModal />
         </div>
     )
 }
