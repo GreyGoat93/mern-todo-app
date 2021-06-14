@@ -8,24 +8,28 @@ let fakeUsers = [
             {
                 id: 1,
                 created_date: "31.12.2001",
+                for_date: "31.12.2001",
                 title: "Say Hello",
                 description: "Hello, World!",
             },
             {
                 id: 2,
                 created_date: "31.12.2001",
+                for_date: "31.12.2001",
                 title: "Wash your hands.",
                 description: "Wash your dirty hands, bro!",
             },
             {
                 id: 3,
                 created_date: "01.01.2002",
+                for_date: "01.01.2002",
                 title: "Go to computer repair.",
                 description: "You need to have your computer repaired!",
             },
             {
                 id: 4,
                 created_date: "02.01.2002",
+                for_date: "02.01.2002",
                 title: "Do workout.",
                 description: "Get strength!",
             },
@@ -40,24 +44,28 @@ let fakeUsers = [
             {
                 id: 5,
                 created_date: "12.11.2004",
+                for_date: "12.11.2004",
                 title: "Buy some weapon.",
                 description: "Guns needed for enemies.",
             },
             {
                 id: 6,
                 created_date: "13.11.2004",
+                for_date: "13.11.2004",
                 title: "Raid your enemies place.",
                 description: "Revenge Time!",
             },
             {
                 id: 7,
                 created_date: "13.11.2004",
+                for_date: "13.11.2004",
                 title: "Go to hospital.",
                 description: "Heal yourself.",
             },
             {
                 id: 8,
                 created_date: "13.11.2004",
+                for_date: "13.11.2004",
                 title: "Do workout.",
                 description: "Get strength bruhh!",
             },
@@ -72,24 +80,28 @@ let fakeUsers = [
             {
                 id: 9,
                 created_date: "21.01.2018",
+                for_date: "21.01.2018",
                 title: "Play computer game with Usopp!",
                 description: "Let Usopp think that he is a hero :)",
             },
             {
                 id: 10,
                 created_date: "21.01.2018",
+                for_date: "21.01.2018",
                 title: "Catch some big fish monsters.",
                 description: "Sanji needs somethings to cook!",
             },
             {
                 id: 11,
                 created_date: "22.01.2018",
+                for_date: "22.01.2018",
                 title: "Go to Dressrosa.",
                 description: "Doflamingo kills people. They need your help!",
             },
             {
                 id: 12,
                 created_date: "22.01.2018",
+                for_date: "22.01.2018",
                 title: "Beat Doffy",
                 description: "Make him eat his ropes!",
             },
@@ -136,7 +148,7 @@ export const getUserTodos = async (userId) => {
     await sleep(600);
     const userTodos = fakeUsers.find(pre => pre.id === parsedId)?.todos;
     if(!userTodos) return [];
-    return userTodos.map(pre => ({...pre, belongsUser: userId}));
+    return userTodos.map(pre => ({...pre, belongsUser: parseInt(userId)}));
 }
 
 export const deleteTodoById = async (todoId) => {
@@ -162,4 +174,14 @@ export const addUserTodo = async (todo) => {
     fakeUsers = [...fakeUsers.filter(pre => pre.id !== user.id), user]
     console.log(user);
     return user.todos;
+}
+
+export const editUserTodo = async (todo) => {
+    await sleep(500);
+    const user = {...fakeUsers.find(pre => pre.id === todo.belongsUser)}
+    user.todos = user.todos.filter(pre => pre.id !== todo.id);
+    user.todos.push(todo);
+    fakeUsers = [...fakeUsers.filter(pre => pre.id !== user.id), user];
+    console.log(fakeUsers);
+    return getUserTodos(todo.belongsUser);
 }

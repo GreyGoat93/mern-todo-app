@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserDataById, getUserTodos, deleteTodoById, addUserTodo } from '../api/users';
+import { getUserDataById, getUserTodos, deleteTodoById, addUserTodo, editUserTodo } from '../api/users';
 
 const initialState = {
     generalLoading: true,
@@ -55,7 +55,13 @@ export const deleteTodo = (todoId) => async (dispatch) => {
 export const addTodo = (todo) => async (dispatch) => {
     console.log("adding todo " + todo.name);
     const todoAdded = await addUserTodo(todo)
-    dispatch(todoAdded);
+    dispatch(todosReceived);
+}
+
+export const editTodo = (todo) => async (dispatch) => {
+    console.log("editing todo " + todo.name);
+    const todoEdited = await editUserTodo(todo);
+    dispatch(todosReceived(todoEdited));
 }
 
 export default todoSlice;

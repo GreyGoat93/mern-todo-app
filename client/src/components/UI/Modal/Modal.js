@@ -17,7 +17,13 @@ const ModalFooter = (props) => {
         <div className="ModalFooter">
             <ButtonSet>
                 <button onClick={props.cancel} className="CancelButton">Cancel</button>
-                <button onClick={props.approve} className="ApproveButton" style={{backgroundColor: props.approveColor}}>{props.approveText}</button>
+                <button 
+                onClick={props.approve} 
+                className="ApproveButton" 
+                style={{backgroundColor: props.approveColor}}
+                type="submit">
+                    {props.approveText}
+                </button>
             </ButtonSet>
         </div>
     )
