@@ -148,7 +148,7 @@ export const getUserTodos = async (userId) => {
     await sleep(600);
     const userTodos = fakeUsers.find(pre => pre.id === parsedId)?.todos;
     if(!userTodos) return [];
-    return userTodos.map(pre => ({...pre, belongsUser: parseInt(userId)}));
+    return userTodos.map(pre => ({...pre, belongsUser: parseInt(userId)})).sort((first, last) => first.id - last.id);
 }
 
 export const deleteTodoById = async (todoId) => {
@@ -159,21 +159,23 @@ export const deleteTodoById = async (todoId) => {
     user.todos = user.todos.filter(pre => pre.id !== parsedId);
     fakeUsers = [...fakeUsers.filter(pre => pre.id !== user.id), user]
     console.log(user);
-    return user.todos;
+    return getUserTodos(user.id);
 }
 
 export const addUserTodo = async (todo) => {
     await sleep(500);
-    const user = {...fakeUsers.find(pre => pre.id === todo.userId)}
+    const parsedUserId = parseInt(todo.userId)
+    const user = {...fakeUsers.find(pre => pre.id === parsedUserId)}
     user.todos.push({
-        name: todo.name, 
+        title: todo.title, 
         description: todo.description,
+        for_date: todo.for_date,
         created_date: getNewDate(),
-        id: findHighestTodoId + 1,
+        id: findHighestTodoId(fakeUsers) + 1,
     })
     fakeUsers = [...fakeUsers.filter(pre => pre.id !== user.id), user]
     console.log(user);
-    return user.todos;
+    return getUserTodos(parsedUserId);
 }
 
 export const editUserTodo = async (todo) => {

@@ -7,13 +7,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import Button from '../UI/Button/Button';
 import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
 
-const TodoList = () => {
+const TodoList = ({userId}) => {
 
     useEffect(() => {console.log("t2")})
     const dispatch = useDispatch();
-    const userData = useSelector(state => state.todoReducer.userData);
     const userTodos = useSelector(state => state.todoReducer.userTodos);
     const userTodosLoading = useSelector(state => state.todoReducer.userTodosLoading)
+    const todoBeAdded = useSelector(state => state.modalReducer.todoBeAdded);
     
     const showDeleteTodoModal = (todo) => {
         dispatch(modalActions.toggleDeleteTodoModalState(true));
@@ -23,6 +23,11 @@ const TodoList = () => {
     const showEditTodoModal = (todo) => {
         dispatch(modalActions.toggleEditTodoModalState(true));
         dispatch(modalActions.setEditTodo(todo));
+    }
+
+    const showAddTodoModal = () => {
+        dispatch(modalActions.setAddTodo({...todoBeAdded, userId}))
+        dispatch(modalActions.toggleAddTodoModalState(true))
     }
     
     let todos = null;
@@ -54,11 +59,11 @@ const TodoList = () => {
                 type="Add" 
                 height="32px" 
                 width="32px" 
-                onClick={() => {dispatch(modalActions.toggleAddTodoModalState(true))}}/>
+                onClick={showAddTodoModal}/>
             </div>
             {todos}
         </div>
     )
 }
 
-export default TodoList
+export default TodoList;

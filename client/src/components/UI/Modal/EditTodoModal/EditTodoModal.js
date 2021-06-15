@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './EditTodoModal.scss';
 import Modal from '../Modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,6 @@ const EditTodoModal = () => {
     const dispatch = useDispatch();
     const modalState = useSelector(state => state.modalReducer.editTodoModalState)
     const todoBeEdited = useSelector(state => state.modalReducer.todoBeEdited)
-    const editTodoForm = useRef();
 
     const formData = {
         title: {
@@ -46,7 +45,7 @@ const EditTodoModal = () => {
         approveText="Edit"
         approveColor="#112288"
         approveForm="editTodo">
-            <form ref={editTodoForm} id="editTodo">
+            <form id="editTodo">
                 {Object.keys(formData).map(inputKey => {
                     return(
                         <div key={inputKey}>

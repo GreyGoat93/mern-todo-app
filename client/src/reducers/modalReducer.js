@@ -8,8 +8,9 @@ const initialState = {
     todoBeEdited: null,
     todoBeAdded: {
         userId: null,
-        name: "",
+        title: "",
         description: "",
+        for_date: "",
     },
 }
 
@@ -31,9 +32,6 @@ const modalSlice = createSlice({
         },
         setAddTodo(state, action){
             state.todoBeAdded = action.payload;
-        },
-        setAddTodoUser(state, action){
-            state.todoBeAdded.userId = action.payload;
         },
         setEditTodo(state, action){
             state.todoBeEdited = action.payload;

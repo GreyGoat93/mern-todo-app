@@ -41,7 +41,7 @@ const Todos = ({match}) => {
                     <NameLabel>
                         {userInfo.first_name} {userInfo.last_name}'s todos
                     </NameLabel>
-                    <TodoList />
+                    <TodoList userId={match.params.id}/>
                 </>
             )
         }

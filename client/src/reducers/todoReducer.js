@@ -53,9 +53,8 @@ export const deleteTodo = (todoId) => async (dispatch) => {
 }
 
 export const addTodo = (todo) => async (dispatch) => {
-    console.log("adding todo " + todo.name);
     const todoAdded = await addUserTodo(todo)
-    dispatch(todosReceived);
+    dispatch(todosReceived(todoAdded));
 }
 
 export const editTodo = (todo) => async (dispatch) => {
