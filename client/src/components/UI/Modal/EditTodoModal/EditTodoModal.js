@@ -34,6 +34,7 @@ const EditTodoModal = () => {
     function formOnSubmitHandler(event){
         event.preventDefault();
         dispatch(editTodo(todoBeEdited))
+        dispatch(modalActions.toggleEditTodoModalState(false))
     }
 
     return (

@@ -8,7 +8,6 @@ import Button from '../UI/Button/Button';
 import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
 
 const TodoList = ({userId}) => {
-
     useEffect(() => {console.log("t2")})
     const dispatch = useDispatch();
     const userTodos = useSelector(state => state.todoReducer.userTodos);
@@ -47,14 +46,17 @@ const TodoList = ({userId}) => {
                 </ul>
             )
         }
-    } else todos = (<div className="SpinnerContainer">
-                        <LoadingSpinner />
-                    </div>)  
+    } else {
+        todos = (
+        <div className="SpinnerContainer">
+            <LoadingSpinner />
+        </div>)
+    }  
 
     return (
         <div className="TodoList">
             <div className="NameAndMenu">
-                <DatePicker />
+                <DatePicker userId={userId}/>
                 <Button 
                 type="Add" 
                 height="32px" 

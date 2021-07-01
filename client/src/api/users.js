@@ -125,6 +125,22 @@ function getNewDate() {
     return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
 }
 
+function dateToHTMLDate(date) {
+    let newDate = "";
+    newDate += date.slice(6, 10) + "-";
+    newDate += date.slice(3, 5) + "-";
+    newDate += date.slice(0, 2);
+    return newDate; 
+}
+
+function HTMLDateToDate(date) {
+    let newDate = "";
+    newDate += date.slice(8, 10) + ".";
+    newDate += date.slice(5, 7) + ".";
+    newDate += date.slice(0, 4);
+    return newDate;
+}
+
 const findHighestTodoId = (arrayUsers) => {
     const ids = arrayUsers.reduce((acc, val) => {
         acc.push(...val.todos)
@@ -142,12 +158,13 @@ export const getUserDataById = async (userId) => {
     return {id: user.id, first_name: user.first_name, last_name: user.last_name, birth_date: user.birth_date};
 }
 
-export const getUserTodos = async (userId) => {
+export const getUserTodos = async (userId, for_date = null) => {
     let parsedId = parseInt(userId);
     console.log("getting todo /api");
     await sleep(600);
-    const userTodos = fakeUsers.find(pre => pre.id === parsedId)?.todos;
+    let userTodos = fakeUsers.find(pre => pre.id === parsedId)?.todos;
     if(!userTodos) return [];
+    for_date && (userTodos = userTodos.filter(pre => pre.for_date === HTMLDateToDate(for_date)))
     return userTodos.map(pre => ({...pre, belongsUser: parseInt(userId)})).sort((first, last) => first.id - last.id);
 }
 

@@ -34,6 +34,7 @@ export default function AddTodoModal() {
     function formOnSubmitHandler(event){
         event.preventDefault();
         dispatch(addTodo(todoBeAdded))
+        dispatch(modalActions.toggleAddTodoModalState(false))
     }
 
     return (
