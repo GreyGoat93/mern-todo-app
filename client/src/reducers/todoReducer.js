@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserDataById, getUserTodos, deleteTodoById, addUserTodo, editUserTodo } from '../api/users';
+import { getUserDataById, getUserTodos, deleteTodoById, addUserTodo, editUserTodo, findDistinctTodoDates } from '../api/users';
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -7,6 +7,7 @@ const initialState = {
     userTodosLoading: true,
     userInfo: null,
     userTodos: [],
+    userTodoDates: [],
     errorGeneral: null,
     errorTodos: null,
 }
@@ -29,16 +30,21 @@ const todoSlice = createSlice({
             state.userTodosLoading = false;
             state.userTodos = action.payload;
         },
+        setUserTodoDates(state, action){
+            state.userTodoDates = action.payload;
+        }
     },
 })
 
-const {todosLoading, todosReceived, userInfoReceived, generalLoading} = todoSlice.actions;
+const {todosLoading, todosReceived, userInfoReceived, generalLoading, setUserTodoDates} = todoSlice.actions;
 
 export const fetchUserData = (userId) => async (dispatch) => {
     dispatch(generalLoading());
     console.log("fetching user Data /reducers");
-    const response = await getUserDataById(userId);
-    dispatch(userInfoReceived(response))
+    const userData = await getUserDataById(userId);
+    const userTodoDates = findDistinctTodoDates(userId);
+    dispatch(setUserTodoDates(userTodoDates));
+    dispatch(userInfoReceived(userData));
 }
 
 export const fetchUserTodos = (userId, for_date = null) => async (dispatch) => {

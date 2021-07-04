@@ -9,7 +9,6 @@ const DeleteTodoModal = () => {
     const dispatch = useDispatch();
     const modalState = useSelector(state => state.modalReducer.deleteTodoModalState)
     const todoBeDeleted = useSelector(state => state.modalReducer.todoBeDeleted)
-    console.log(todoBeDeleted);
 
     const approveDeleteTodo = (id) => {
         dispatch(deleteTodo(id));
